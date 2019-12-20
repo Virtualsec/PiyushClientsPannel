@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Piyush Ele</title>
+
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <!-- <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/> -->
+</head>
+<body>
+        <div class="container my-4">
+            <div class="text-center">
+                <h1 class="display-5 text-center mb-3">Piyush Electric</h1>
+                <button id="get" class="btn btn-primary">Get All Clients</button>
+                <button id="add" class="btn btn-danger">Add New Clients</button>
+                <!-- <button id="del" class="btn btn-secondary">Delete Clients</button> -->
+                <hr>
+            </div>
+            <div id="res"></div>
+            <div id="model"></div>
+        </div>
+    
+        <div class="modal fade" id="editClientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <form id="editClientForm">
+                        <div class="form-group">
+                            <input type="hidden" id="id">
+                            <input type="text" class="form-control" id="name" placeholder="Name">
+                            <input type="text" class="form-control mt-3" id="contact" placeholder="Contact">
+                            <input type="text" class="form-control mt-3" id="address" placeholder="Address">
+                        </div>
+                        <div class="form-group">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="./jquery-3.3.1.slim.min.js"></script>
+    <script src="./bootstrap.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
