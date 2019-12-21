@@ -13,14 +13,46 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/> -->
 </head>
 <body>
-        <div class="container my-4">
-            <div class="text-center">
+
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+    <a class="navbar-brand" href="#">Admin Pannel</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav ml-auto">
+        
+        <li class="nav-item">
+          <button class="btn"  id="get">Get Client</button>
+        </li>
+        <li class="nav-item">
+          <button class="btn mr-1"  id="add">Add Client</button>
+        </li>
+      </ul>
+      
+      <span class="navbar-text">
+        <form class="form-inline">
+          <input id="clientSearch" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </span>
+    </div>
+  </div>
+  </nav>
+
+        <div class="container mt-3">
+
+            <!-- <div class="text-center">
+              
                 <h1 class="display-5 text-center mb-3">Piyush Electric</h1>
                 <button id="get" class="btn btn-primary">Get All Clients</button>
                 <button id="add" class="btn btn-danger">Add New Clients</button>
-                <!-- <button id="del" class="btn btn-secondary">Delete Clients</button> -->
+                
+                
                 <hr>
-            </div>
+            </div> -->
             <div id="res"></div>
             <div id="model"></div>
         </div>
@@ -43,9 +75,10 @@
                             <input type="text" class="form-control mt-3" id="contact" placeholder="Contact">
                             <input type="text" class="form-control mt-3" id="address" placeholder="Address">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group"> 
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
+                        <button id="del" class="btn btn-danger">Delete</button>
                       </form>
                 </div>
               </div>

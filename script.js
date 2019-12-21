@@ -3,6 +3,13 @@ var address = document.getElementById('address')
 const contact = document.getElementById('contact')
 const id = document.getElementById('id')
 
+$('#clientSearch').on('keyup', function (){
+    var value = $(this).val();
+    console.log(value);
+})
+
+
+
 function getClient(){
     axios
         .get("https://piyush-admin.herokuapp.com/client")
@@ -12,8 +19,14 @@ function getClient(){
 
 function showClient({ data }) {
 
+
     document.getElementById('res').innerHTML = `
-    <table class="table">
+    <div class="table-responsive">
+    <center>
+    <h2>All Clients Details</h2>
+    </center>
+    <hr>
+    <table class="table  table-hover table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">ID</th>
@@ -24,7 +37,8 @@ function showClient({ data }) {
                     </tr>
                 </thead>
                 <tbody>
-                </tbody>`;
+                </tbody>
+                </div>`;
 
     const tbody = document.querySelector('table tbody')
     output = '';
@@ -50,19 +64,30 @@ function showClient({ data }) {
 
 function addClient(){
     console.log("ADD");
-    
     document.getElementById('res').innerHTML = `
     <div class="container w-75">
-                <form>
+    <center>
+    <h2>Add New Client</h2>
+    </center>
+    <hr>
+            <form>
+            <div id="msg" class="m-auto"></div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                <label>Client ID</label>
-                <input id="cid" type="text" class="form-control"  placeholder="Client ID">
-                </div>
-                <div class="form-group col-md-6">
                 <label >Date</label>
-                <input type="date" class="form-control" placeholder="Date">
+                <input id="date" type="date" class="form-control" placeholder="Date">
                 </div>
+
+                <div class="form-group col-md-6">
+                <label>Work</label>
+                <input id="work" class="form-control" list="workList" placeholder="Work Name">
+                <datalist id="workList">
+                    <option>Electric</option>
+                    <option>Plumbing</option>
+                    <option>Hardware</option>
+                    <option>Reparing</option>
+                </datalist>
+            </div>
             </div>
             <div class="form-row">
             <div class="form-group col-md-6">
@@ -101,36 +126,18 @@ function addClient(){
                 <label>Room</label>
                 <input id="room" type="text" class="form-control" placeholder="Room Number" list="roomNo">
             </div>
-
-            <div class="form-group col-md-6">
-                <label>Work</label>
-                <input id="work" class="form-control" list="workList" placeholder="Work Name">
-                <datalist id="workList">
-                    <option>Electric</option>
-                    <option>Plumbing</option>
-                    <option>Hardware</option>
-                    <option>Reparing</option>
-                </datalist>
-            </div>
             
-            <div class="form-group col-md-6">
-                <label>Goods</label>
-                <input id="goods" class="form-control" list="boolen" placeholder="Yes/No">
-                <datalist id="boolen">
-                    <option>Yes</option>
-                    <option>No</option>
-                </datalist>
-            </div>
             </div>
             </form>
-        </div>  
-        <center>
-        <button  class="btn btn-danger my-3" id="post">Add Client</button>
+            <center>
+            <button  class="btn btn-danger my-3 w-25" id="post">Add Client</button>
         </center>
+        </div>  
     </div>`;
 
     function postClient(){
-        var cid = document.getElementById("cid").value;
+        
+        var date = document.getElementById("date").value;
         var name = document.getElementById("name").value;
         var mobile = document.getElementById("mobile").value;
         var work = document.getElementById("work").value;
@@ -145,20 +152,23 @@ function addClient(){
             wing = document.getElementById("wing").value,
             room = document.getElementById("room").value
         ]
+        
         var addRev  = address.reverse();
         var addr = addRev.toString();
         
         axios
         .post("https://piyush-admin.herokuapp.com/client",{
+            date: date,
             name: name,
             mobileNo: mobile,
             address: addr,
             work: work
         })
-        .then(res => console.log(res))
+        .then(res => clientAdded())
         .catch(err => console.error(err));
 
-        console.log(cid)
+       
+        console.log(date)
         console.log(name)
         console.log(mobile)
         console.log(addr)
@@ -166,61 +176,83 @@ function addClient(){
         console.log("ADDED")
     }
 
-    var buildingNames = new Array (
-        "Agarwal Lifestyle A",
-        "Agarwal Lifestyle B",
-        "Agarwal Lifestyle C",
-        "Agarwal Solitaire",
-        "Agarwal Paramount",
-        "Bhoomi Acropolis",
-        "Bhavani View",
-        "Blu Pearl",
-        "Cosmos Regency",
-        "M-Avenue",
-        "J-Avenue",
-        "H-Avenue",
-        "G-Avenue",
-        "I-Avenue",
-        "K-Avenue",
-        "L-Avenue",
-        "D-Avenue",
-        "Poonam Avenue",
-        "Poonam ParkView",
-        "Pooman Heights",
-        "Poonam Imperial",
-        "Bachraj Landmark",
-        "Bachraj Residency",
-        "Bachraj Paradise",
-        "Bachraj LifeSpace",
-        "Sumit Greendale",
-        "Sumit Greendale NX",
-        "Shree Shashwat",
-        "Star Heights",
-        "Shanti Homes",
-        "Siddhi Homes",
-        "Evershine Homes",
-        "Evershine Avenue A3",
-        "Evershine Avenue A6",
-        "Ekta Parksville Central",
-        "Ekta Parksville Lincoln",
-        "Ekta Parksville Sentosa",
-        "Ekta Parksville Regent",
-        "Ekta Brooklyn Park",
-        "Vinay Unique Gardens",
-        "Vinay Unique Homes",
-        "Vinay Unique Heights",
-        "Vinay Unique Imperia",
-        "Vinay Unique Corner",
-        "Joyti Harmony",
-        "Mandar Avenue",
-        "Mandar Shlip",
-        "Mahavir heights",
-        "Casa Vista",
-        "New Home Paradise",
-        "Mathuresh Krupa",
-        "Rachna Tower",
-        "Datta Krishna Height",
-    )
+    function clientAdded(){
+        var date = document.getElementById("date").value ="";
+        var name = document.getElementById("name").value ="";
+        var mobile = document.getElementById("mobile").value ="";
+        var work = document.getElementById("work").value ="";
+        var area = document.getElementById("area").value ="";
+        var buildingName = document.getElementById("buildingName").value ="";
+        var wing = document.getElementById("wing").value ="";
+        var room = document.getElementById("room").value ="";
+
+        address = [
+            area = document.getElementById("area").value ="",
+            building = document.getElementById("buildingName").value ="",
+            wing = document.getElementById("wing").value ="",
+            room = document.getElementById("room").value =""
+        ]
+        document.getElementById('msg').innerHTML = `
+        <div class="alert alert-success  text-center" role="alert">
+        Client Added
+        </div>`;
+    }
+
+var buildingNames = new Array (
+    "Agarwal Lifestyle A",
+    "Agarwal Lifestyle B",
+    "Agarwal Lifestyle C",
+    "Agarwal Solitaire",
+    "Agarwal Paramount",
+    "Bhoomi Acropolis",
+    "Bhavani View",
+    "Blu Pearl",
+    "Cosmos Regency",
+    "M-Avenue",
+    "J-Avenue",
+    "H-Avenue",
+    "G-Avenue",
+    "I-Avenue",
+    "K-Avenue",
+    "L-Avenue",
+    "D-Avenue",
+    "Poonam Avenue",
+    "Poonam ParkView",
+    "Pooman Heights",
+    "Poonam Imperial",
+    "Bachraj Landmark",
+    "Bachraj Residency",
+    "Bachraj Paradise",
+    "Bachraj LifeSpace",
+    "Sumit Greendale",
+    "Sumit Greendale NX",
+    "Shree Shashwat",
+    "Star Heights",
+    "Shanti Homes",
+    "Siddhi Homes",
+    "Evershine Homes",
+    "Evershine Avenue A3",
+    "Evershine Avenue A6",
+    "Ekta Parksville Central",
+    "Ekta Parksville Lincoln",
+    "Ekta Parksville Sentosa",
+    "Ekta Parksville Regent",
+    "Ekta Brooklyn Park",
+    "Vinay Unique Gardens",
+    "Vinay Unique Homes",
+    "Vinay Unique Heights",
+    "Vinay Unique Imperia",
+    "Vinay Unique Corner",
+    "Joyti Harmony",
+    "Mandar Avenue",
+    "Mandar Shlip",
+    "Mahavir heights",
+    "Casa Vista",
+    "New Home Paradise",
+    "Mathuresh Krupa",
+    "Rachna Tower",
+    "Datta Krishna Height",
+)
         
     var opt = '';
     for(var i = 0; i < buildingNames.length; ++i){
@@ -299,11 +331,29 @@ document.querySelector('#editClientForm').addEventListener('submit', e => {
         .catch(err => console.log(err))
 })
 
-function clientUpdated(){
-    console.log("POST");
-    
+document.querySelector('#del').addEventListener('click', e => {
+    e.preventDefault();
+    axios
+        .delete(`https://piyush-admin.herokuapp.com/client/${id.value}`)
+        .then( del => clientDeleted())
+        .catch( err => console.log(err))
+})
+
+function clientDeleted(){
+    console.log("DEL");
+    getClient();
+    $('#editClientModal').modal('hide')
 }
+    
+function clientUpdated(){
+    console.log("POST");  
+}
+
+
+
+
 
 document.getElementById("get").addEventListener('click', getClient);
 document.getElementById("add").addEventListener('click', addClient);
+
 getClient();
