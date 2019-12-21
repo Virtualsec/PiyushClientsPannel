@@ -3,11 +3,31 @@ var address = document.getElementById('address')
 const contact = document.getElementById('contact')
 const id = document.getElementById('id')
 
-$('#clientSearch').on('keyup', function (){
-    var value = $(this).val();
-    console.log(value);
-})
 
+$(document).ready(function(){
+    
+    $('#search').keyup(function(){
+     $('#res').html('');
+     $('#state').val('');
+     var searchField = $('#search').val();
+     var expression = new RegExp(searchField, "i");
+     $.getJSON('https://piyush-admin.herokuapp.com/client', function(data) {
+      $.each(data, function(key, value){
+       if (value.name.search(expression) != -1 || value.location.search(expression) != -1)
+       {
+        $('#res').append('<li class="list-group-item link-class"><img src="'+value.image+'" height="40" width="40" class="img-thumbnail" /> '+value.name+' | <span class="text-muted">'+value.location+'</span></li>');
+       }
+      });   
+     });
+    });
+    
+    $('#res').on('click', 'li', function() {
+     var click_text = $(this).text().split('|');
+     $('#search').val($.trim(click_text[0]));
+     $("#res").html('');
+    });
+   });
+   
 
 
 function getClient(){
